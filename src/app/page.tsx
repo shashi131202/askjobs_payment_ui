@@ -100,7 +100,7 @@ export default function PaymentPage() {
           style={{ animation: "fadeUp 0.5s ease both" }}
         >
           <span className="w-1.5 h-1.5 rounded-full bg-[#C02C2A]" style={{ animation: "pulse 1.5s ease infinite" }} />
-          Top up your AI credits
+          Top up your credits
         </div>
 
         {/* Headline */}
