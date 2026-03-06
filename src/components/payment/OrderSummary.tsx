@@ -9,8 +9,6 @@ interface OrderSummaryProps {
 }
 
 export default function OrderSummary({ plan, isLoading, onSubmit }: OrderSummaryProps) {
-  const gst = Math.round(plan.price * 0.18);
-  const total = plan.price + gst;
   const creditBarPct = Math.min((plan.credits / 50) * 100, 100);
 
   return (
@@ -70,10 +68,6 @@ export default function OrderSummary({ plan, isLoading, onSubmit }: OrderSummary
           <span className="text-[#7A5A5A]">{plan.displayName}</span>
           <span className="font-semibold text-[#1A0A0A]">₹{plan.price}.00</span>
         </div>
-        <div className="flex justify-between items-center text-[0.82rem]">
-          <span className="text-[#7A5A5A]">GST (18%)</span>
-          <span className="font-semibold text-[#1A0A0A]">₹{gst}.00</span>
-        </div>
       </div>
 
       <div className="h-px bg-[rgba(192,44,42,0.1)] mb-4" />
@@ -90,7 +84,7 @@ export default function OrderSummary({ plan, isLoading, onSubmit }: OrderSummary
             backgroundClip: "text",
           }}
         >
-          ₹{total}
+          ₹{plan.price}
         </span>
       </div>
 
@@ -143,32 +137,8 @@ export default function OrderSummary({ plan, isLoading, onSubmit }: OrderSummary
             <line x1="1" y1="10" x2="23" y2="10" />
           </svg>
         )}
-        {isLoading ? "Processing..." : `Pay ₹${total} · Get ${plan.credits} Credits`}
+        {isLoading ? "Processing..." : `Pay ₹${plan.price} · Get ${plan.credits} Credits`}
       </button>
-
-      Trust line
-      <div className="flex items-center justify-center gap-1.5 mt-3 text-[0.7rem] text-[#7A5A5A]">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-        </svg>
-        Secured by Razorpay · Credits never expire
-      </div>
-
-      {/* Trust badges */}
-      <div className="flex items-center justify-center gap-4 mt-4 pt-4 border-t border-[rgba(192,44,42,0.08)]">
-        <span className="text-[0.63rem] text-[#7A5A5A]">Trusted &amp; secure</span>
-        {[
-          { label: "Razorpay", d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
-          { label: "SSL", d: "M8 11V7a4 4 0 0 1 8 0v4" },
-        ].map(({ label, d }) => (
-          <div key={label} className="flex items-center gap-1 text-[0.66rem] font-medium text-[#7A5A5A]">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d={d} />
-            </svg>
-            {label}
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
